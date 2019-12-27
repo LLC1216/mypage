@@ -42,7 +42,7 @@
     <script>
          
       ////////////////////////////////////////////////////////註冊//////////////////////////////////////////////////////
-        $(document).ready(function(){  
+        $(document).ready(function(){ 
             $("#SignUp").click(function(){
                 var email         = $('#email').val();
                 var password    = $('#pwd').val();
@@ -59,6 +59,11 @@
     <script> //////////////////////////////////////////////////////登入//////////////////////////////////////////////////////
         $(document).ready(function(){ 
         	
+
+		    
+
+        	
+
             $("#SignIn").click(function(){
                 var email         = $('#email').val();
                 var password    = $('#pwd').val();
@@ -88,10 +93,57 @@
 
 
 			    //document.getElementsByClassName("username").innerHTML = "歡迎!"+userLogin['email']
-			  } else {
-			    
-			  }
+			  } 
 			});
+			$("#fbsignin").click(function(){
+				///////////////////////////////////////////////////////FB//////////////////////////////////////////////////////// 
+        		var provider = new firebase.auth.FacebookAuthProvider();
+		    	//所需授權的Scope 
+		    	provider.addScope('user_birthday');
+		    	provider.setCustomParameters({'display': 'popup'});
+            	
+            	firebase.auth().signInWithPopup(provider).then(function(result) {
+	               // 取得FB Token，可以使用於FB API中
+	               var token = result.credential.accessToken;
+	               // 使用者資料
+	               userLogin = result.user;
+	               alert("成功使用 Facebook 帳號登入！");
+	            }).catch(function(error) {
+	            	// Handle Errors here.
+	                var errorCode = error.code;
+	                var errorMessage = error.message;
+	                // The email of the user's account used.
+	                var email = error.email;
+	                // The firebase.auth.AuthCredential type that was used.
+	                var credential = error.credential;
+	                alert(errorMessage)
+	            });
+            });
+
+            $("#googlesignin").click(function(){
+            	//////////////////////////////////////////////////////GOOGLE///////////////////////////////////////////
+		    	var provider = new firebase.auth.GoogleAuthProvider();
+		    	//所需授權的Scope 
+		    	provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+		    	provider.setCustomParameters({'login_hint': 'user@example.com'});
+            	firebase.auth().signInWithPopup(provider).then(function(result) {
+	               // 取得FB Token，可以使用於FB API中
+	               var token = result.credential.accessToken;
+	               // 使用者資料
+	               userLogin = result.user;
+	               alert("成功使用 Google 帳號登入！");
+	            }).catch(function(error) {
+	            	// Handle Errors here.
+	                var errorCode = error.code;
+	                var errorMessage = error.message;
+	                // The email of the user's account used.
+	                var email = error.email;
+	                // The firebase.auth.AuthCredential type that was used.
+	                var credential = error.credential;
+	                alert(errorMessage)
+	            });
+	        });
+
 			$("#SignOut").click(function(){
 				firebase.auth().signOut().then(function() {
 			        console.log("User sign out!");
@@ -118,7 +170,7 @@
           	var d=NowDate.getDate();
 　        	var h=NowDate.getHours();
 　        	var m=NowDate.getMinutes();
-          	var showtime = mon + "月" + d + "日" + h + "點" + m + "分"; 
+          	var showtime = (mon+1) + "月" + d + "日" + h + "點" + m + "分"; 
           	var key = db.ref('message/').push({
       			username: userLogin['email'] ,
           	  message: msg ,
@@ -141,19 +193,21 @@
         	    });  
         	    function display_msgs(data_val){
 
-        	      keys = Object.keys(data_val);
-        	      msgs = '';
-        	      time2 = '';
+        	      	keys = Object.keys(data_val);
+        	      	msgs = '';
+        	      	time2 = '';
         	      
-        	      for (var i = keys.length - 1; i >= 0; i--) {
-        	      	if (i%2 ==0) {
-        	        	msgs += '<div class="text-dark col" style="background-color:#d2bfe3">' + data_val[keys[i]]['username'] +': '+ data_val[keys[i]	]['message']+'</div>';
-        	        	time2 += '<div class="text-dark col" style="background-color:#d2bfe3">' + data_val[keys[i]]['time']+ '</div>';
-        	        }
-        	        else{
-        	        	msgs += '<div class="text-dark col" >' + data_val[keys[i]]['username'] +': '+ data_val[keys[i]	]['message']+'</div>';
-        	        	time2 += '<div class="text-dark col" >' + data_val[keys[i]]['time']+ '</div>';
-        	        }
+        	      for (var i = keys.length - 1; i >=(keys.length - 24); i--) {
+        	      	
+        	         	if (i%2 ==0) {
+        	        		msgs += '<div class="text-dark col" style="background-color:#d2bfe3">' + data_val[keys[i]]['username'] +': '+ data_val[	keys[i]	]['message']+'</div>';
+        	        		time2 += '<div class="text-dark col" style="background-color:#d2bfe3">' + data_val[keys[i]]['time']+ '</div>';
+        	        	}
+        	        	else{
+        	        		msgs += '<div class="text-dark col" >' + data_val[keys[i]]['username'] +': '+ data_val[keys[i]	]['message']+'</div>';
+        	        		time2 += '<div class="text-dark col" >' + data_val[keys[i]]['time']+ '</div>';
+        	        	}
+
         	      }
         	      $('#data').html(msgs); 
         	      $('#dptime').html(time2); 
@@ -246,6 +300,7 @@
           <a href="https://www.facebook.com/az7525175?ref=bookmarks">
             <i class="fab fa-facebook-f"></i>
           </a>
+          
         </div>
         <h2 class="username">歡迎!遊客</h2>
     </section>
@@ -383,7 +438,16 @@
 
 
 		</div>
-		<input type="checkbox" id="showpasswd" placeholder="1">顯示密碼<br>
+		<input type="checkbox" id="showpasswd" placeholder="1">顯示密碼<br><br>
+		<font>你也可以試試</font>
+		<div class="social-icons">
+          <a>
+            <i class="fab fa-facebook-f" id="fbsignin"></i>
+          </a>
+          <a>
+            <i class="fab fa-google" id="googlesignin"></i>
+          </a>
+      	</div>
     </section>
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="message">
       <div class="w-100">
