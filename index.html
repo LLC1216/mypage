@@ -42,6 +42,12 @@
     <script>
          
       ////////////////////////////////////////////////////////註冊//////////////////////////////////////////////////////
+=======
+	  firebase.initializeApp(config);
+	</script>
+
+    <script>  //註冊
+>>>>>>> 796ac49904b35b5357055aabd8cf3117ab3b0bbf
         $(document).ready(function(){  
             $("#SignUp").click(function(){
                 var email         = $('#email').val();
@@ -56,9 +62,14 @@
             });                         
         });         
     </script>
+<<<<<<< HEAD
     <script> //////////////////////////////////////////////////////登入//////////////////////////////////////////////////////
         $(document).ready(function(){ 
         	
+=======
+    <script> //登入
+        $(document).ready(function(){  
+>>>>>>> 796ac49904b35b5357055aabd8cf3117ab3b0bbf
             $("#SignIn").click(function(){
                 var email         = $('#email').val();
                 var password    = $('#pwd').val();
@@ -69,6 +80,7 @@
 		          // ...
 		          alert(errorMessage)
 		        })
+<<<<<<< HEAD
 
                  alert("歡迎!"+userLogin['email'])
 		        
@@ -90,6 +102,21 @@
 			    //document.getElementsByClassName("username").innerHTML = "歡迎!"+userLogin['email']
 			  } else {
 			    
+=======
+            });
+            var userLogin;
+			firebase.auth().onAuthStateChanged(function(user) {
+			  if (user) {
+			    userLogin = user;
+			    var x = document.getElementsByClassName("username");
+    			x[0].innerHTML = "歡迎!"+userLogin['email'];
+    			x[1].innerHTML = "歡迎!"+userLogin['email'];
+
+			    //document.getElementsByClassName("username").innerHTML = "歡迎!"+userLogin['email']
+			  } else {
+			    userLogin = null;
+			    alert("使用者已登出");
+>>>>>>> 796ac49904b35b5357055aabd8cf3117ab3b0bbf
 			  }
 			});
 			$("#SignOut").click(function(){
@@ -98,6 +125,7 @@
 			    }, function(error) {
 			    console.log("User sign out error!");
 			    })
+<<<<<<< HEAD
 			    userLogin = null;
 			    alert("使用者已登出");
 			    var x = document.getElementsByClassName("username");
@@ -106,10 +134,13 @@
     			x[2].innerHTML = "歡迎!遊客"
     			x[3].innerHTML = "歡迎!遊客"
 
+=======
+>>>>>>> 796ac49904b35b5357055aabd8cf3117ab3b0bbf
 			 });
             $("#getUID").click(function(){
             	if (userLogin)
             		alert(userLogin['uid']);
+<<<<<<< HEAD
             });
             //////////////////////////////////////////////////////訊息/////////////////////////////////////////////
             function push(msg) {
@@ -184,6 +215,10 @@
 			}
 		});
 });
+=======
+            });                         
+        });         
+>>>>>>> 796ac49904b35b5357055aabd8cf3117ab3b0bbf
     </script>
 
 </head>
@@ -221,7 +256,11 @@
           <a class="nav-link js-scroll-trigger" href="#awards">相片</a>
         </li>
         <li class="nav-item">
+<<<<<<< HEAD
           <a class="nav-link js-scroll-trigger" href="#signinup" id="gotosign">登入</a>
+=======
+          <a class="nav-link js-scroll-trigger" href="#signinup">登入</a>
+>>>>>>> 796ac49904b35b5357055aabd8cf3117ab3b0bbf
         </li>
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="#message">留言</a>
@@ -374,20 +413,31 @@
 
         <div class="w-100 row">
 		<input type="text" id="email"      placeholder="Email"/>
+<<<<<<< HEAD
     	<input type="password" id="pwd"       placeholder="密碼"/>  
+=======
+    	<input type="text" id="pwd"       placeholder="密碼"/>  
+>>>>>>> 796ac49904b35b5357055aabd8cf3117ab3b0bbf
     	<button id="SignUp" class="btn btn-outline-success" >註冊</button><br><br>  
     	<button id="SignIn" class="btn btn-outline-primary" >登入</button><br><br>  
     	<button id="SignOut"class="btn btn-outline-danger" >登出</button><br><br>  
 
+<<<<<<< HEAD
     	<button id="getUID">取得UID</button><br><br> 
 
 
 		</div>
 		<input type="checkbox" id="showpasswd" placeholder="1">顯示密碼<br>
+=======
+    <button id="getUID">取得UID</button><br><br> 
+
+		</div>
+>>>>>>> 796ac49904b35b5357055aabd8cf3117ab3b0bbf
     </section>
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="message">
       <div class="w-100">
         <h2 class="mb-5">留言板</h2>
+<<<<<<< HEAD
         <div class="">
        	<h3 class="username"></h3>
        	<div  >
@@ -400,6 +450,12 @@
 
        	</div>
 	  </div>
+=======
+        <div class="row">
+       	<h3 class="username">歡迎!遊客</h3>
+
+		</div>
+>>>>>>> 796ac49904b35b5357055aabd8cf3117ab3b0bbf
     </section>
 
 
