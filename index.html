@@ -21,7 +21,10 @@
   <!-- Custom styles for this template -->
   <link href="css/resume.min.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase.js"></script>
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+
   <script>
 	  // Initialize Firebase
 	var config = {
@@ -37,8 +40,53 @@
 
 	  firebase.initializeApp(config);
 	  var db = firebase.database(); 
-	</script>
+	  var storage = firebase.storage();
 
+	</script>
+	
+	
+	<script type="text/javascript">
+    		var storageReference = storage.ref();
+    		storageReference.listAll().then( res => {
+
+    		  //console.log(res.items[0].fullPath)
+    		  console.log(res.items)
+    		  for ( var i = res.items.length - 1; i >= 0; i--) {
+    		  	var ph = res.items[i].fullPath;
+    		  	console.log(ph)
+
+    		  	
+    		  	storageReference.child(ph).getDownloadURL().then(function(url) {
+    		  		
+				  var xhr = new XMLHttpRequest();
+				  xhr.responseType = 'blob';
+				  xhr.onload = function(event) {
+				    var blob = xhr.response;
+				  };
+				  xhr.open('GET', url);
+				  xhr.send();
+				
+				  // Or inserted into an <img> element:
+				  var x = document.getElementsByClassName("img-fluid");
+				  	for (var j = 0; j <= res.items.length - 1 ; j++) {
+				  		x[j].src = url;
+				  	}
+				  	
+				}).catch(function(error) {
+				  // Handle any errors
+				});
+//
+    		  	
+    		  }
+
+    		    
+    		})
+
+				
+				
+
+			
+	</script>
     <script>
          
       ////////////////////////////////////////////////////////註冊//////////////////////////////////////////////////////
@@ -161,6 +209,7 @@
 			 });
             $("#getUID").click(function(){
             	if (userLogin)
+            		
             		alert(userLogin['uid']);
             });
             //////////////////////////////////////////////////////訊息/////////////////////////////////////////////
@@ -200,7 +249,7 @@
         	      for (var i = keys.length - 1; i >=(keys.length - 24); i--) {
         	      	
         	         	if (i%2 ==0) {
-        	        		msgs += '<div class="text-dark col" style="background-color:#d2bfe3">' + data_val[keys[i]]['username'] +': '+ data_val[	keys[i]	]['message']+'</div>';
+        	        		msgs += '<div class="text-dark col" style="background-color:#d2bfe3">'  + data_val[keys[i]]['username'] +': '+ data_val[	keys[i]	]['message']+'</div>';
         	        		time2 += '<div class="text-dark col" style="background-color:#d2bfe3">' + data_val[keys[i]]['time']+ '</div>';
         	        	}
         	        	else{
@@ -248,7 +297,7 @@
     <a class="navbar-brand js-scroll-trigger" href="#page-top">
       <span class="d-block d-lg-none username" >遊客</span>
       <span class="d-none d-lg-block">
-        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/53.jpg" alt="">
+        <img class=" img-profile rounded-circle mx-auto mb-2" src="img/53.jpg" alt="">
       </span>
     </a>
     <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -355,7 +404,7 @@
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="img/portfolio/cabin.png" alt="">
+            <img class="img-fluid" id="myimg" src="" alt="">
           </div>
         </div>
 
