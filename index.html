@@ -58,7 +58,8 @@
           var pic = res.items
 
           console.log(pic)
-          for( i= pic.length -1;i>=0 ; i--){
+          for( i= 0; i<=5; i++){
+
               var picpath =pic[i].fullPath
               console.log(i)
               storageReference.child(picpath).getDownloadURL().then(function(url) {
