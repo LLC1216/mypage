@@ -45,42 +45,69 @@
 	</script>
 	
 	
-	<script type="text/javascript">
+	<script >
+     
+
+     $(document).ready(function(){
+        
+        
+        
     		var storageReference = storage.ref();
+
     		storageReference.listAll().then( res => {
+          var pic = res.items
 
-    		  //console.log(res.items[0].fullPath)
-    		  console.log(res.items)
-    		  for ( var i = res.items.length - 1; i >= 0; i--) {
-    		  	var ph = res.items[i].fullPath;
-    		  	console.log(ph)
+          console.log(pic)
 
-    		  	
-    		  	storageReference.child(ph).getDownloadURL().then(function(url) {
-    		  		
-				  var xhr = new XMLHttpRequest();
-				  xhr.responseType = 'blob';
-				  xhr.onload = function(event) {
-				    var blob = xhr.response;
-				  };
-				  xhr.open('GET', url);
-				  xhr.send();
-				
-				  // Or inserted into an <img> element:
-				  var x = document.getElementsByClassName("img-fluid");
-				  	for (var j = 0; j <= res.items.length - 1 ; j++) {
-				  		x[j].src = url;
-				  	}
-				  	
-				}).catch(function(error) {
-				  // Handle any errors
-				});
+          for ( i = pic.length -1; i >=0; i--) {
+            var x = document.getElementsByClassName("img-fluid")
+            var picpath =pic[i].fullPath
+
+
+           // console.log(picpath);
+            console.log(i)
+            storageReference.child(picpath).getDownloadURL()
+            var url = storageReference.child(picpath).getDownloadURL()
+
+            console.log(url)
+            console.log(i)
+            }
+
+                  
+          
+          
+
+           
+            
+
+
+
+       //   });
+			  });
+
+    });
+            
 //
+//          
+//            // Or inserted into an <img> element:
+//            
+//
+//            
+//            picurl = url;
+//            console.log("1")
+//           
+//
+//
+//          }).catch(function(error) {
+//            
+//          }); 
+
+
     		  	
-    		  }
+    		  
 
     		    
-    		})
+    		
 
 				
 				
@@ -286,7 +313,20 @@
 				$passwordInput.replaceWith($password.val($passwordInput.val()));
 			}
 		});
-});
+}); 
+ //觸動按鈕的點擊
+    $(function(url){
+        // `url` is the download URL for 'images/stars.jpg'
+      
+        // This can be downloaded directly:
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = function(event) {
+          var blob = xhr.response;
+        };
+        xhr.open('GET', url);
+        xhr.send();
+    });    
     </script>
 
 </head>
@@ -404,7 +444,7 @@
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" id="myimg" src="" alt="">
+            <img class="img-fluid" id="pictest"  src="" alt="">
           </div>
         </div>
 
@@ -416,7 +456,7 @@
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="img/portfolio/cake.png" alt="">
+            <img class="img-fluid"  src="" alt="">
           </div>
         </div>
 
@@ -428,7 +468,7 @@
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="img/portfolio/circus.png" alt="">
+            <img class="img-fluid" src="" alt="">
           </div>
         </div>
 
@@ -440,7 +480,7 @@
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="img/portfolio/game.png" alt="">
+            <img class="img-fluid"  src="" alt="">
           </div>
         </div>
 
@@ -452,7 +492,7 @@
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="img/portfolio/safe.png" alt="">
+            <img class="img-fluid" src="" alt="">
           </div>
         </div>
 
@@ -464,7 +504,7 @@
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="img/portfolio/submarine.png" alt="">
+            <img class="img-fluid" id="1" src="" alt="">
           </div>
         </div>
 
