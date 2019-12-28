@@ -50,39 +50,42 @@
 
      $(document).ready(function(){
         
-        
-        
+        var c =0
+  
     		var storageReference = storage.ref();
 
     		storageReference.listAll().then( res => {
           var pic = res.items
 
           console.log(pic)
-
-          for ( i = pic.length -1; i >=0; i--) {
-            var x = document.getElementsByClassName("img-fluid")
-            var picpath =pic[i].fullPath
-
-
-           // console.log(picpath);
-            console.log(i)
-            storageReference.child(picpath).getDownloadURL()
-            var url = storageReference.child(picpath).getDownloadURL()
-
-            console.log(url)
-            console.log(i)
-            }
-
+          for( i= pic.length -1;i>=0 ; i--){
+              var picpath =pic[i].fullPath
+              console.log(i)
+              storageReference.child(picpath).getDownloadURL().then(function(url) {
+                
+                    
+                  var xhr = new XMLHttpRequest();
+                  xhr.responseType = 'blob';
+                  xhr.onload = function(event) {
+                    var blob = xhr.response;
+                  };
+                  xhr.open('GET', url);
+                  xhr.send();
+                   
                   
+                  var  x = document.getElementsByClassName("img-fluid")
+                  x[c].src = url
+                  c=c+1
+                  console.log(url)
+                  console.log(c)
+                  
+                  })
+              }
+
+  
           
           
 
-           
-            
-
-
-
-       //   });
 			  });
 
     });
@@ -315,18 +318,7 @@
 		});
 }); 
  //觸動按鈕的點擊
-    $(function(url){
-        // `url` is the download URL for 'images/stars.jpg'
-      
-        // This can be downloaded directly:
-        var xhr = new XMLHttpRequest();
-        xhr.responseType = 'blob';
-        xhr.onload = function(event) {
-          var blob = xhr.response;
-        };
-        xhr.open('GET', url);
-        xhr.send();
-    });    
+
     </script>
 
 </head>
