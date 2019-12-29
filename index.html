@@ -243,17 +243,15 @@
         	      for (var i = keys.length - 1; i >=(keys.length - 24); i--) {
         	      	
         	         	if (i%2 ==0) {
-        	        		msgs += '<div class="text-dark col" style="background-color:#d2bfe3">'  + data_val[keys[i]]['username'] +': '+ data_val[	keys[i]	]['message']+'</div>';
-        	        		time2 += '<div class="text-dark col" style="background-color:#d2bfe3">' + data_val[keys[i]]['time']+ '</div>';
+        	        		msgs += '<div class="text-dark col" style="background-color:#d2bfe3">'  + data_val[keys[i]]['username'] +': '+ data_val[	keys[i]	]['message'] +'<div class="text-dark col" style="background-color:#d2bfe3">' + data_val[keys[i]]['time']+ '</div>'  +'</div>';
         	        	}
         	        	else{
-        	        		msgs += '<div class="text-dark col" >' + data_val[keys[i]]['username'] +': '+ data_val[keys[i]	]['message']+'</div>';
-        	        		time2 += '<div class="text-dark col" >' + data_val[keys[i]]['time']+ '</div>';
+        	        		msgs += '<div class="text-dark col" >' + data_val[keys[i]]['username'] +': '+ data_val[keys[i]	]['message'] + '<div class="text-dark col" >' + data_val[keys[i]]['time']+ '</div>' + '</div>';
         	        	}
 
         	      }
         	      $('#data').html(msgs); 
-        	      $('#dptime').html(time2); 
+
         	    }
         	    db.ref('message/').on('value', function(snapshot) {
         	      display_msgs(snapshot.val());
@@ -563,8 +561,8 @@ canvas{border: 1px solid #000;}
     		<input type="text" id="push_msg"        placeholder="請寫下留言"/>
     		<button class="btn btn-outline-primary" id="push_test">留言</button><br><br>
 			<div class="row col-12" >
-    			<p style="width:80%" id="data"></p>
-    			<p style="width:20%"  id="dptime"></p>
+    			<p style="width:100%" id="data"></p>
+    			
     		</div>
 
        	</div>
@@ -573,7 +571,7 @@ canvas{border: 1px solid #000;}
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="draw">
       <div class="w-100">
           <div class="container">
-          <canvas width="800px" height="800px" id="art"></canvas>
+          <canvas style="width:100%;height:100%;" id="art"></canvas>
            <div id="buttons">
              <input type="button" id="reset" value="Reset"/>
              <a id="save" href="#"  download="painting.png" ><button>下載</button></a>
@@ -671,6 +669,17 @@ canvas{border: 1px solid #000;}
       this.href = _url;
  
     });
+
+    function IsPC()
+    {
+      var userAgentInfo = navigator.userAgent;
+      var Agents = new Array(“Android”, “iPhone”, “SymbianOS”, “Windows Phone”, “iPad”, “iPod”);
+      var flag = true;
+      for (var v = 0; v < Agents.length; v ) {
+        if (userAgentInfo.indexOf(Agents[v]) > 0) { flag = false; break; }
+      }
+      return flag;
+    }
   </script>
 
 
