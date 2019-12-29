@@ -666,6 +666,7 @@ canvas{border: 1px solid #000;}
   </script>
   <script type="text/javascript">
     $('#save').on('click', function(){
+      var _canvas = document.getElementById('art');
       var _url = _canvas.toDataURL();
       this.href = _url;
  
